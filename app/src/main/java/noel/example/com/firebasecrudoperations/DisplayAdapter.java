@@ -1,6 +1,5 @@
 package noel.example.com.firebasecrudoperations;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +19,14 @@ public class DisplayAdapter extends RecyclerView.Adapter<DisplayAdapter.ViewHold
 
     DatabaseReference databasepersonal;
 
-    Context context;
+
     List<Details> DetailList;
 
-    public DisplayAdapter(Context context, List<Details> TempList) {
+    public DisplayAdapter(DisplayActivity displayActivity, List<Details> TempList) {
 
         this.DetailList = TempList;
 
-        this.context = context;
+
     }
 
     @Override
@@ -58,7 +57,6 @@ public class DisplayAdapter extends RecyclerView.Adapter<DisplayAdapter.ViewHold
             public void onClick(View view) {
                 databasepersonal=FirebaseDatabase.getInstance().getReference("items").child(personDetails.getPersonId());
                 databasepersonal.removeValue();
-                Toast.makeText(context, "Data deleted", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -85,8 +83,6 @@ public class DisplayAdapter extends RecyclerView.Adapter<DisplayAdapter.ViewHold
 
         return DetailList.size();
     }
-
-
 
 
 

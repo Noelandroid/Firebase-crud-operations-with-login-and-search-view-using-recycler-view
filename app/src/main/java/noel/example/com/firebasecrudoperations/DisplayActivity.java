@@ -1,18 +1,14 @@
 package noel.example.com.firebasecrudoperations;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.SearchView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +33,8 @@ public class DisplayActivity extends AppCompatActivity {
 
     RecyclerView.Adapter adapter ;
 
+    SearchView searchView;
+
 
 
 
@@ -56,6 +54,7 @@ public class DisplayActivity extends AppCompatActivity {
 
 
 
+        searchView=findViewById(R.id.searchView);
 
 
 
@@ -77,6 +76,8 @@ public class DisplayActivity extends AppCompatActivity {
         databasepersonal.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+
+                list.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
@@ -100,6 +101,32 @@ public class DisplayActivity extends AppCompatActivity {
 
             }
         });
+
+        if (searchView!=null){
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    search(s);
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void search(String str) {
+        ArrayList<Details>mylist=new ArrayList<Details>();
+        for(Details object:list){
+            if (object.getPersonName().toLowerCase().contains(str.toLowerCase())){
+                mylist.add(object);
+            }
+        }
+        DisplayAdapter adapterClass=new DisplayAdapter(DisplayActivity.this, mylist);
+        recyclerView.setAdapter(adapterClass);
     }
 
 

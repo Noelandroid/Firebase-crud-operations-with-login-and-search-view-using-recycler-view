@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class UpdateDataActivity extends AppCompatActivity {
 
     EditText name,age,dob;
-    Button updates,backs;
+    Button updates;
 
     DatabaseReference databasepersonal;
 
@@ -40,7 +40,7 @@ public class UpdateDataActivity extends AppCompatActivity {
 
         updates=findViewById(R.id.updates);
 
-        backs=findViewById(R.id.button_backs);
+
 
 
         id=i.getStringExtra("id");
@@ -82,13 +82,6 @@ public class UpdateDataActivity extends AppCompatActivity {
             }
         });
 
-        backs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               Intent intent = new Intent(UpdateDataActivity.this,DisplayActivity.class);
-               startActivity(intent);
 
-            }
-        });
     }
 }
